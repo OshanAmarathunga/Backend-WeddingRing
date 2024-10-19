@@ -8,6 +8,9 @@ import com.weddingring.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ProfileServiceImpl implements ProfileService {
     @Autowired
@@ -23,6 +26,18 @@ public class ProfileServiceImpl implements ProfileService {
        ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
        return mapper.convertValue(entity,ProfileDto.class);
 
+
+    }
+
+    @Override
+    public List<ProfileDto> getAllProfiles() {
+        List<ProfileEntity> allProfiles = profileRepository.findAll();
+        List<ProfileDto> dtoList=new ArrayList<>();
+        allProfiles.forEach((each)->{
+            dtoList.add(mapper.convertValue(each,ProfileDto.class));
+        });
+
+        return dtoList;
 
     }
 }
