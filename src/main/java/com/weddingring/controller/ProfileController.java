@@ -37,8 +37,6 @@ public class ProfileController {
 
             return ResponseEntity.status(404).body(response);
         }
-
-
         return ResponseEntity.status(200).body(allProfiles);
 
     }
