@@ -40,4 +40,19 @@ public class ProfileController {
         return ResponseEntity.status(200).body(allProfiles);
 
     }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<?> updateProfile(@RequestBody ProfileDto dto){
+        log.info("dto {}",dto);
+        ProfileDto profileDto = profileService.updateProfile(dto);
+        if(profileDto==null){
+            Map<String,String> response=new HashMap<>();
+            response.put("message","Update Error");
+            response.put("status","error");
+
+            return ResponseEntity.status(404).body(response);
+        }
+
+        return ResponseEntity.status(200).body(profileDto);
+    }
 }
