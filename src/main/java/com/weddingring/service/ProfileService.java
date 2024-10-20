@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProfileService {
     ProfileDto saveProfile(ProfileDto dto);
     List<ProfileDto> getAllProfiles();
+    ProfileDto updateProfile(ProfileDto dto);
 }

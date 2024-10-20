@@ -40,4 +40,22 @@ public class ProfileServiceImpl implements ProfileService {
         return dtoList;
 
     }
+
+    @Override
+    public ProfileDto updateProfile(ProfileDto dto) {
+        ProfileEntity entity = profileRepository.findById(dto.getProfileId()).orElse(null);
+        if(entity==null){
+            return null;
+        }else {
+            try {
+                ProfileEntity savedEntity = profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
+                return mapper.convertValue(savedEntity, ProfileDto.class);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+
+
+    }
 }
