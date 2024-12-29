@@ -2,10 +2,8 @@ package com.weddingring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.annotation.Collation;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -23,7 +21,11 @@ public class ProfileEntity {
     private String gender;
     private String contactNo;
     private String landLineNo;
+
+
     private String email;
+
+
     private String birthDay;
     private String religion;
     private String ethnicity;

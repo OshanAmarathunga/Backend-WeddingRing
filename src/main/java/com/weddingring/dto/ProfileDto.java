@@ -35,6 +35,7 @@ public class ProfileDto {
     private String motherProfession;
     private boolean isHoroscopeMatchingRequired;
     private String timestamp;
+    
 
 
 

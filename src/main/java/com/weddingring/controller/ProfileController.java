@@ -23,13 +23,14 @@ public class ProfileController {
     @PostMapping("/save-profile")
     public ResponseEntity<ProfileDto> saveProfile(@RequestBody ProfileDto dto){
         ProfileDto profileDto = profileService.saveProfile(dto);
+        log.info("profileDto {}",profileDto);
         return profileDto==null?ResponseEntity.status(400).body(null):ResponseEntity.status(200).body(profileDto);
     }
 
     @GetMapping("/get-all-profiles")
     public ResponseEntity<?> getAllProfiles(){
         List<ProfileDto> allProfiles = profileService.getAllProfiles();
-//        log.info("allProfiles {}",allProfiles);
+
         if (allProfiles.isEmpty()) {
             Map<String, String> response = new HashMap<>();
             response.put("message", "No profiles found");

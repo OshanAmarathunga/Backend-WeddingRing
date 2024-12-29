@@ -5,6 +5,7 @@ import com.weddingring.dto.ProfileDto;
 import com.weddingring.entity.ProfileEntity;
 import com.weddingring.repository.ProfileRepository;
 import com.weddingring.service.ProfileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProfileServiceImpl implements ProfileService {
     @Autowired
     ProfileRepository profileRepository;
@@ -21,10 +23,11 @@ public class ProfileServiceImpl implements ProfileService {
     public ProfileDto saveProfile(ProfileDto dto) {
 
         Long dbID=profileRepository.count();
-        String ProfileNumber=""+1000+dbID;
-        dto.setProfileId("P-ID-"+ProfileNumber);
-       ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
-       return mapper.convertValue(entity,ProfileDto.class);
+        String profileNumber=""+1000+dbID;
+        dto.setProfileId("P-ID-"+profileNumber);
+
+        ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
+        return mapper.convertValue(entity,ProfileDto.class);
 
 
     }
@@ -33,9 +36,9 @@ public class ProfileServiceImpl implements ProfileService {
     public List<ProfileDto> getAllProfiles() {
         List<ProfileEntity> allProfiles = profileRepository.findAll();
         List<ProfileDto> dtoList=new ArrayList<>();
-        allProfiles.forEach((each)->{
-            dtoList.add(mapper.convertValue(each,ProfileDto.class));
-        });
+        allProfiles.forEach(each->
+            dtoList.add(mapper.convertValue(each,ProfileDto.class))
+        );
 
         return dtoList;
 
