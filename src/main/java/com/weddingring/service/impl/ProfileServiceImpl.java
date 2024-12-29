@@ -3,6 +3,7 @@ package com.weddingring.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weddingring.dto.ProfileDto;
 import com.weddingring.entity.ProfileEntity;
+import com.weddingring.exception.ProfileNotFoundException;
 import com.weddingring.repository.ProfileRepository;
 import com.weddingring.service.ProfileService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     private final ObjectMapper mapper;
 
-    @Autowired
+
     public ProfileServiceImpl(ProfileRepository profileRepository, ObjectMapper mapper) {
         this.profileRepository = profileRepository;
         this.mapper = mapper;
@@ -29,12 +30,17 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public ProfileDto saveProfile(ProfileDto dto) {
 
-        Long dbID=profileRepository.count();
-        String profileNumber=""+1000+dbID;
-        dto.setProfileId("P-ID-"+profileNumber);
 
-        ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
-        return mapper.convertValue(entity,ProfileDto.class);
+        boolean emailExist = profileRepository.existsByEmail(dto.getEmail());
+        if (!emailExist){
+            Long dbID=profileRepository.count();
+            String profileNumber=""+1000+dbID;
+            dto.setProfileId("P-ID-"+profileNumber);
+            ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
+            return mapper.convertValue(entity,ProfileDto.class);
+        }else {
+            throw new ProfileNotFoundException("Email is already exists!");
+        }
 
     }
 

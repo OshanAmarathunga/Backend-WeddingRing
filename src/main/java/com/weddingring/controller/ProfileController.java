@@ -27,7 +27,6 @@ public class ProfileController {
     @PostMapping("/save-profile")
     public ResponseEntity<ProfileDto> saveProfile(@RequestBody ProfileDto dto){
         ProfileDto profileDto = profileService.saveProfile(dto);
-        log.info("profileDto {}",profileDto);
         return profileDto==null?ResponseEntity.status(400).body(null):ResponseEntity.status(200).body(profileDto);
     }
 
