@@ -3,11 +3,10 @@ package com.weddingring.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weddingring.dto.ProfileDto;
 import com.weddingring.entity.ProfileEntity;
-import com.weddingring.exception.ProfileNotFoundException;
+import com.weddingring.exception.GeneralException;
 import com.weddingring.repository.ProfileRepository;
 import com.weddingring.service.ProfileService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class ProfileServiceImpl implements ProfileService {
             ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
             return mapper.convertValue(entity,ProfileDto.class);
         }else {
-            throw new ProfileNotFoundException("Email is already exists!");
+            throw new GeneralException("Duplicate Email");
         }
 
     }
