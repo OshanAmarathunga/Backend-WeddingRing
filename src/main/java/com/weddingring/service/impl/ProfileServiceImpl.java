@@ -28,8 +28,6 @@ public class ProfileServiceImpl implements ProfileService {
 
         ProfileEntity entity= profileRepository.save(mapper.convertValue(dto, ProfileEntity.class));
         return mapper.convertValue(entity,ProfileDto.class);
-
-
     }
 
     @Override
