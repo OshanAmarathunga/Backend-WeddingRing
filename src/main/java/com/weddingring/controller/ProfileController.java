@@ -17,8 +17,12 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @Slf4j
 public class ProfileController {
-    @Autowired
-    ProfileService profileService;
+
+    private final ProfileService profileService;
+
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @PostMapping("/save-profile")
     public ResponseEntity<ProfileDto> saveProfile(@RequestBody ProfileDto dto){
@@ -28,7 +32,7 @@ public class ProfileController {
     }
 
     @GetMapping("/get-all-profiles")
-    public ResponseEntity<?> getAllProfiles(){
+    public ResponseEntity<Object> getAllProfiles(){
         List<ProfileDto> allProfiles = profileService.getAllProfiles();
 
         if (allProfiles.isEmpty()) {
@@ -43,7 +47,7 @@ public class ProfileController {
     }
 
     @PutMapping("/update-profile")
-    public ResponseEntity<?> updateProfile(@RequestBody ProfileDto dto){
+    public ResponseEntity<Object> updateProfile(@RequestBody ProfileDto dto){
         log.info("dto {}",dto);
         ProfileDto profileDto = profileService.updateProfile(dto);
         if(profileDto==null){

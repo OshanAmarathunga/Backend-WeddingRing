@@ -15,13 +15,19 @@ import java.util.List;
 @Service
 @Slf4j
 public class ProfileServiceImpl implements ProfileService {
+
+    private final ProfileRepository profileRepository;
+
+    private final ObjectMapper mapper;
+
     @Autowired
-    ProfileRepository profileRepository;
-    @Autowired
-    ObjectMapper mapper;
+    public ProfileServiceImpl(ProfileRepository profileRepository, ObjectMapper mapper) {
+        this.profileRepository = profileRepository;
+        this.mapper = mapper;
+    }
+
     @Override
     public ProfileDto saveProfile(ProfileDto dto) {
-        System.out.println("hi");
 
         Long dbID=profileRepository.count();
         String profileNumber=""+1000+dbID;
