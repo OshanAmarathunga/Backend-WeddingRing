@@ -21,7 +21,7 @@ public class ProfileDto {
     private String birthDay;
     private String religion;
     private String ethnicity;
-    private String height;
+    private double height;
     private String civilStatus;
     private String countryOfResidence;
     private String district;

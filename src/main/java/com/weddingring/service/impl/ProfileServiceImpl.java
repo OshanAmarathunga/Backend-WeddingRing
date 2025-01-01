@@ -28,8 +28,6 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ProfileDto saveProfile(ProfileDto dto) {
-
-
         boolean emailExist = profileRepository.existsByEmail(dto.getEmail());
         if (!emailExist){
             Long dbID=profileRepository.count();
@@ -40,7 +38,6 @@ public class ProfileServiceImpl implements ProfileService {
         }else {
             throw new GeneralException("Duplicate Email");
         }
-
     }
 
     @Override

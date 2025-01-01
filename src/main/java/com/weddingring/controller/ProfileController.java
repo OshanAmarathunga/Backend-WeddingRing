@@ -2,6 +2,7 @@ package com.weddingring.controller;
 
 import com.weddingring.dto.ProfileDto;
 import com.weddingring.service.ProfileService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class ProfileController {
     }
 
     @GetMapping("/get-all-profiles")
-    public ResponseEntity<Object> getAllProfiles(){
+    public ResponseEntity<Object> getAllProfiles(HttpServletRequest request){
+        log.info("Session ID: {}",request.getSession().getId());
         List<ProfileDto> allProfiles = profileService.getAllProfiles();
 
         if (allProfiles.isEmpty()) {
